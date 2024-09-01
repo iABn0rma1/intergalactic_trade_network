@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* Main */
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Chart and Table Containers */
+        #trade-volume-chart,
+        #cargo-shipments-table,
+        #inventory-levels-chart {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tables */
+        #cargo-shipments-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #cargo-shipments-table th,
+        #cargo-shipments-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #cargo-shipments-table th {
+            background-color: #f4f4f4;
+        }
+
+        /* Charts */
+        #trade-volume-chart,
+        #inventory-levels-chart {
+            height: 400px;
+            position: relative;
+        }
+
+        .chart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+
+            #trade-volume-chart,
+            #cargo-shipments-table,
+            #inventory-levels-chart {
+                padding: 10px;
+            }
+
+            #cargo-shipments-table table {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Analytics Dashboard</h1>
+    </header>
+
+    <main>
+        <section id="trade-volume">
+            <h2>Current Trade Volume</h2>
+            <div id="trade-volume-chart"></div>
+        </section>
+        <section id="cargo-shipments">
+            <h2>Active Cargo Shipments</h2>
+            <div id="cargo-shipments-table"></div>
+        </section>
+        <section id="inventory-levels">
+            <h2>Inventory Levels</h2>
+            <div id="inventory-levels-chart"></div>
+        </section>
+    </main>
+
+    <script>
+        const socket = new WebSocket('ws://127.0.0.1:8000/ws/analytics/');
+
+socket.onopen = function() {
+    console.log('WebSocket connected');
+};
+
+socket.onmessage = function(event) {
+    console.log('Message received:', event.data);
+};
+
+socket.onerror = function(error) {
+    console.error('WebSocket error:', error);
+};
+
+socket.onclose = function(event) {
+    console.log('WebSocket closed', event);
+};
+
+    </script>
+
+
+</body>
+
+</html>
